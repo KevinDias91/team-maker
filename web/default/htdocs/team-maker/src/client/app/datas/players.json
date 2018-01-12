@@ -1,0 +1,22 @@
+[
+  {
+    "name": "player one",
+    "type": ["SCO"]
+  },
+  {
+    "name": "player two",
+    "type": "SCO"
+  },
+  {
+    "name": "player three",
+    "type": "DRI"
+  },
+  {
+    "name": "player four",
+    "type": "SCO"
+  },
+  {
+    "name": "player five",
+    "type": "DEF"
+  }
+]

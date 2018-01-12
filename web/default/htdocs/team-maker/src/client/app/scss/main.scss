@@ -1,0 +1,33 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #2e2e2e;
+  color: white;
+}
+
+.hidden {
+  display: none;
+  visibility: hidden;
+}
+
+.player--list {
+
+  li {
+    &:hover {
+      .hidden {
+        display: initial;
+        visibility: visible;
+      }
+    }
+  }
+}
+
+
+.form--add_player {
+  margin-top: 50px;
+}
+
+
