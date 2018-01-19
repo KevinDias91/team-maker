@@ -10,7 +10,7 @@ var environment = $.util.env.type || 'development';
 var isProduction = environment === 'production';
 var webpackConfig = require('./webpack.config.js').getConfig(environment);
 
-var port = $.util.env.port || 1337;
+var port = $.util.env.port || 3000;
 var app = 'src/client/app/';
 var dist = 'dist/';
 

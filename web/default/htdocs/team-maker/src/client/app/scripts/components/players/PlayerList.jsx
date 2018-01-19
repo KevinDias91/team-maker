@@ -16,25 +16,7 @@ class PlayerList extends React.Component {
         return (
             <ul className={'player--list'}>
                 {
-                    players.map((player, key) => {
-                        const rowLen = player.type.length;
-
-                        return (
-                            <li key={key} id={key}>
-                                {player.name} (
-                                    {
-                                        player.type.map((type, i) => {
-                                            let coma = rowLen === i + 1 ? '' : ', ';
-
-                                            return type + coma
-                                        })
-                                    }
-                                )
-
-                                <button className={'deletePlayer hidden'} onClick={(evt) => this.deletePlayer(evt)}>del</button>
-                            </li>
-                        )
-                    })
+                    this.props.listOfPlayers(players)
                 }
             </ul>
         )

@@ -48,11 +48,13 @@ class AddPlayer extends React.Component {
         return (
             <form className={'form--add_player'} id={'addPlayer'}>
 
-                <legend>
-                    Ajouter un joueur
-                </legend>
 
                 <fieldset>
+
+                    <legend>
+                        Ajouter un joueur
+                    </legend>
+
                     <input type="text" name='playerName' id={'playerName'} placeholder={'Nom du joueur'}/>
                 </fieldset>
 
