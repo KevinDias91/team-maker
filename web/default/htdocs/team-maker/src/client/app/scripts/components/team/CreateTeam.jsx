@@ -22,14 +22,14 @@ class CreateTeam extends React.Component {
             if(index === teams.length-1) index = 0;
             else index++;
         });
-/*
+
         let index2 = 0;
         replacements.map((rep) => {
             teams[index2].replacement.push(rep);
 
             if(index2 === teams.length-1) index2 = 0;
             else index2++;
-        });*/
+        });
 
         console.log(teams);
 
@@ -107,6 +107,8 @@ class CreateTeam extends React.Component {
         //On pourra ensuite les distribuer à l'aide d'une simple boucle.
 
         let finalArray = rebArrayFinal.concat(defArrayFinal, pasArrayFinal, scoArrayFinal, driArrayFinal);
+
+        //On créer un tableau pour stocker les remplaçants pour chaque équipe.
         const replacementArray = finalArray.slice(Math.max(finalArray.length - replacementNb, 1));
 
         for (let h = 0; h < replacementArray.length; h++) {
@@ -140,23 +142,18 @@ class CreateTeam extends React.Component {
             //Pour compter le nombre d'équipe possible, on divise le nombre total de joueur par chacunes des possibilités en terme de nombre de joueur par équipe.
             [2, 3, 4, 5].map((item, key) => {
                 const numberOfTeam = parseInt(playerNumber/item);
+
+
                 let isReplacement = null;
                 let replacementNumber = 0;
 
-                //Si le résultat de cette division n'est pas un entier, il y a un ou plusieurs joueur remplaçant pour ce choix-ci.
-                if (!Number.isInteger(playerNumber/item)){
-                    const replacementDecimal = parseInt((playerNumber/item).toFixed(1).split('.')[1]);
-                    replacementNumber = 1; //On initialise le nombre de remplacement à un.
-
-                    if (replacementDecimal > 5) { //Si les décimales sont supérieures à .5, c'est que le nombre de remplacement global est de 2. à départager dans les différentes équipes.
-                        replacementNumber = 2;
-                    }
-
-                    isReplacement = <span>({replacementNumber} remplaçant(s))</span>;
-                }
-
                 //Impossible de créer des équipes d'un seul joueur.
                 if (numberOfTeam > 1){
+
+                    const replacementNumber = playerNumber-(numberOfTeam*item);
+
+                    if (replacementNumber > 0) isReplacement = <span>({replacementNumber} remplaçant(s))</span>;
+
                     return (
                         <label htmlFor={numberOfTeam + '_' + item} key={key}>
                             {numberOfTeam} équipes de {item} joueur(s) {isReplacement}
