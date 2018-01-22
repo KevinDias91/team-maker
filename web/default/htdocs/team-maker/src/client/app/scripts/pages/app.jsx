@@ -23,6 +23,7 @@ class App extends React.Component {
                 {"DEF": "Défenseur"}
             ],
             playerList: [],
+            selectedPlayerList: [],
             socket: openSocket('http://localhost:3000'),
             teams: [],
             playersOrdered: []
@@ -42,6 +43,29 @@ class App extends React.Component {
         this.setState({
             teams: teams
         });
+    }
+
+    selectPlayer(e){
+        const playerId = e.target.id.split('player_')[1];
+        const playerClicked = e.target;
+
+        let selectedPlayerArray = this.state.selectedPlayerList;
+
+        //If the player selected is not already selected, we add him in the selected players Array.
+        //Otherwise we delete the player.
+        if(_.includes(selectedPlayerArray, this.state.playerList[playerId])){
+            selectedPlayerArray = _.pull(selectedPlayerArray, this.state.playerList[playerId]);
+        } else {
+            selectedPlayerArray.push(this.state.playerList[playerId]);
+        }
+
+        //update the state to update the view
+        this.setState({
+            selectedPlayerList: selectedPlayerArray
+        });
+
+        playerClicked.classList.toggle('active');
+
     }
 
     listOfPlayers(players){
@@ -72,15 +96,15 @@ class App extends React.Component {
                 const rowLen = player.type.length;
 
                 return (
-                    <li key={key}>
+                    <li key={key} onClick={(evt) => {this.selectPlayer(evt)}} id={'player_'+key} className={'player--list__select'}>
                         {player.name} (
-                        {
-                            player.type.map((type, i) => {
-                                let coma = rowLen === i + 1 ? '' : ', ';
+                            {
+                                player.type.map((type, i) => {
+                                    let coma = rowLen === i + 1 ? '' : ', ';
 
-                                return type + coma
-                            })
-                        }
+                                    return type + coma
+                                })
+                            }
                         )
                     </li>
                 )
@@ -97,8 +121,6 @@ class App extends React.Component {
             _this.setState({
                 playerList: data
             });
-
-            // console.log('send_data', data);
         })
     }
 
@@ -116,13 +138,13 @@ class App extends React.Component {
 
                 <PlayerList players={this.state.playerList}
                             updatePlayers={this.updatePlayers.bind(this)}
-                            listOfSelectablePlayers={this.listOfPlayers.bind(this)}/>
+                            listOfSelectablePlayers={this.listOfSelectablePlayers.bind(this)}/>
 
                 <AddPlayer playerType={this.state.playerTypes}
                            players={this.state.playerList}
                            updatePlayers={this.updatePlayers.bind(this)}/>
 
-                <CreateTeam players={this.state.playerList}
+                <CreateTeam players={this.state.selectedPlayerList}
                             teams={this.state.teams}
                             playersOrdered={this.state.playersOrdered}
                             updateNewTeam={this.updateNewTeam.bind(this)}/>
