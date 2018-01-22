@@ -19,9 +19,6 @@ class Teams extends React.Component {
     }
 
     showReplacement(replacementArray){
-
-        console.log(replacementArray);
-
         return (
             <div>
                 <h2>Replacement</h2>
@@ -34,16 +31,16 @@ class Teams extends React.Component {
 
     render(){
         const teams = this.props.teams;
-        const moreThanOneReplacement = (teams[0].replacement.length > 0 && teams[1].replacement.length);
 
-        console.log(moreThanOneReplacement);
+        //Returns 1 there is more than one replacement
+        const moreThanOneReplacement = (teams[0].replacement.length > 0 && teams[1].replacement.length);
 
         return (
             <div>
                 <h2>equipes</h2>
                 { this.showTeams(teams, moreThanOneReplacement) }
 
-                { teams[0].replacement.length > 0 && teams[1].replacement.length === 0 ? this.showReplacement(teams[0].replacement) : '' }
+                { moreThanOneReplacement === 0 ? this.showReplacement(teams[0].replacement) : '' }
             </div>
         )
     }

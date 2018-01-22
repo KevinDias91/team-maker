@@ -16,7 +16,8 @@ class PlayerList extends React.Component {
         return (
             <ul className={'player--list'}>
                 {
-                    this.props.listOfPlayers(players)
+                    //We call the playerListing function
+                    this.props.listOfSelectablePlayers(players)
                 }
             </ul>
         )

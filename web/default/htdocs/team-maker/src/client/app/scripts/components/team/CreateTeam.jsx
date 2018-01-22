@@ -10,19 +10,20 @@ class CreateTeam extends React.Component {
         }
     }
 
-    //Ajouter les joueurs aux différentes équipes.
+    //Add players to the different Teams.
     addPlayerToTeams(typeArray, teams, replacements){
         let index = 0;
 
         typeArray.map((item, key) => {
             if (!_.isUndefined(teams[index])) teams[index].players.push(item);
 
-            //Si l'index est égal au nombre d'équipe, on réinitialise à zéro l'index pour revenir à la première équipe.
-            //Sinon, on incrémente l'index.
+            //If the index is equal than the number of teams, we reset the index to zero and come back to the first team of the list.
+            //Otherwise we increment the index
             if(index === teams.length-1) index = 0;
             else index++;
         });
 
+        //Same thing for the replacement list.
         let index2 = 0;
         replacements.map((rep) => {
             teams[index2].replacement.push(rep);
@@ -31,8 +32,7 @@ class CreateTeam extends React.Component {
             else index2++;
         });
 
-        console.log(teams);
-
+        //We Update the teams with de replacement.
         this.props.updateNewTeam(teams);
     }
 
@@ -48,15 +48,15 @@ class CreateTeam extends React.Component {
 
     generateTeam(teamNb, playerNb, replacementNb){
         /*
-            Priorités pour faire les teams
-            1. Les Rebondeurs REB
-            2. Les Défenseurs DEF
-            3. Les Passeur PAS
-            4. Les Scoreurs SCO
-            5. Les Dribbleurs DRI
+            Features priorities to create the teams
+            1. Rebounds REB
+            2. Defense DEF
+            3. Passing PAS
+            4. Scoring SCO
+            5. Dribblers DRI
 
-            Un array avec autant d'objets que de teams.
-            On remplit les objets des REB, DEF, PAS dans l'ordre. Puis on remplit avec le reste.
+            We already have created the teams. They take form of an Array with an Object for each team.
+            We fill the objects with the REB, DEF, PAS in the right order. Then we fill with the rest.
          */
 
         // let newPlayerList = playerList.slice();
@@ -69,7 +69,6 @@ class CreateTeam extends React.Component {
 
         let newTeam = [];
 
-
         for (let i = 0; i < teamNb; i++) {
             const newTeamPull = newTeam.push({
                 team: i+1,
@@ -81,7 +80,7 @@ class CreateTeam extends React.Component {
 
         this.props.updateNewTeam(newTeam);
 
-        //On sépare les joueurs selon leurs caractéristiques
+        //We split the player according to their features
 
         const rebArrayFinal = this.createCaracArray(rebArray, 'REB');
         const defArrayFinal = this.createCaracArray(defArray, 'DEF');
@@ -99,16 +98,16 @@ class CreateTeam extends React.Component {
 
         /*
         *
-        * Distribution des joueurs
+        * Assignement of the players
         *
         * */
 
-        //Pour la distribution, on rassemble les joueurs classés dans un seul tableau.
-        //On pourra ensuite les distribuer à l'aide d'une simple boucle.
+        //For the distribution, on assemble the sorted players in a single Array.
+        //Then we'll be able to assign with a simple loop.
 
         let finalArray = rebArrayFinal.concat(defArrayFinal, pasArrayFinal, scoArrayFinal, driArrayFinal);
 
-        //On créer un tableau pour stocker les remplaçants pour chaque équipe.
+        //We create an Array to stock the replacements for each team.
         const replacementArray = finalArray.slice(Math.max(finalArray.length - replacementNb, 1));
 
         for (let h = 0; h < replacementArray.length; h++) {
@@ -119,7 +118,6 @@ class CreateTeam extends React.Component {
     }
 
     createTeamSubmit(e){
-
         e.preventDefault();
         e.stopPropagation();
 
@@ -137,9 +135,9 @@ class CreateTeam extends React.Component {
     countTeamNumber(playerList, playerNumber){
         return (
 
-            //Possibilité de faire des équipe de 2, 3, 4, 5 joueurs.
+            //Possibility of making teams of 2, 3, 4, 5 players.
 
-            //Pour compter le nombre d'équipe possible, on divise le nombre total de joueur par chacunes des possibilités en terme de nombre de joueur par équipe.
+            //To count the number of teams you can make, we divide the total amount of players by each element of the player number possibilities array.
             [2, 3, 4, 5].map((item, key) => {
                 const numberOfTeam = parseInt(playerNumber/item);
 
@@ -147,9 +145,10 @@ class CreateTeam extends React.Component {
                 let isReplacement = null;
                 let replacementNumber = 0;
 
-                //Impossible de créer des équipes d'un seul joueur.
+                //Not possible to create one player teams.
                 if (numberOfTeam > 1){
 
+                    //We calculate the number of replacement.
                     const replacementNumber = playerNumber-(numberOfTeam*item);
 
                     if (replacementNumber > 0) isReplacement = <span>({replacementNumber} remplaçant(s))</span>;

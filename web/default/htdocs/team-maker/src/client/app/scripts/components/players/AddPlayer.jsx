@@ -6,7 +6,6 @@ class AddPlayer extends React.Component {
         e.preventDefault();
         e.stopPropagation();
 
-        const socket = this.props.socket;
         const playerList = this.props.players;
 
         const form = document.forms['addPlayer'];
@@ -26,17 +25,21 @@ class AddPlayer extends React.Component {
 
         if (playerName !== '' && playerType.length > 0) {
 
+            //We only can enter 3 features per player
             if (playerType.length <= 3) {
+
+                //We create the new player object which will permit us to fill the players json.
                 const newPlayerObj = {
                     'name': playerName,
                     'type': playerType
                 };
 
+                //We update the state with the new team to update the whole app
                 const finalPlayerList = playerList.push(newPlayerObj);
 
                 this.props.updatePlayers(playerList);
             } else {
-                alert('Nombre de type limité à 3');
+                alert('Nombre de caractéristiques limité à 3');
             }
         }
     }

@@ -66,6 +66,28 @@ class App extends React.Component {
         )
     }
 
+    listOfSelectablePlayers(players){
+        return (
+            players.map((player, key) => {
+                const rowLen = player.type.length;
+
+                return (
+                    <li key={key}>
+                        {player.name} (
+                        {
+                            player.type.map((type, i) => {
+                                let coma = rowLen === i + 1 ? '' : ', ';
+
+                                return type + coma
+                            })
+                        }
+                        )
+                    </li>
+                )
+            })
+        )
+    }
+
     componentDidMount() {
         const _this = this;
 
@@ -94,11 +116,10 @@ class App extends React.Component {
 
                 <PlayerList players={this.state.playerList}
                             updatePlayers={this.updatePlayers.bind(this)}
-                            listOfPlayers={this.listOfPlayers.bind(this)}/>
+                            listOfSelectablePlayers={this.listOfPlayers.bind(this)}/>
 
                 <AddPlayer playerType={this.state.playerTypes}
                            players={this.state.playerList}
-                           socket={this.state.socket}
                            updatePlayers={this.updatePlayers.bind(this)}/>
 
                 <CreateTeam players={this.state.playerList}
