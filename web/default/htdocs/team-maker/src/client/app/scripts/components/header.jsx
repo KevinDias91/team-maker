@@ -3,10 +3,8 @@ import React from 'react';
 
 const Header = (props) => {
   return (
-    <header className="clearfix">
-      Team Maker
-
-
+    <header>
+        <h1>BasketBall Team Maker</h1>
     </header>
   )
 };

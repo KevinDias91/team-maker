@@ -1,0 +1,28 @@
+html {
+  font-size: 62.5%;
+}
+
+body {
+  background-color: #2e2e2e;
+  color: white;
+
+  @extend %Quicksand;
+  font-size: 1.4rem;
+}
+
+h1 {
+  padding: 20px 0;
+
+  @extend %Sedgwick;
+  font-size: 3rem;
+  text-align: center;
+}
+
+.hidden {
+  display: none;
+  visibility: hidden;
+}
+
+.form--add_player {
+  margin-top: 50px;
+}

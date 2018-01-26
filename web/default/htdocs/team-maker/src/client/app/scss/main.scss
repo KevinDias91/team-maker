@@ -1,38 +1,8 @@
-* {
-  margin: 0;
-  padding: 0;
-}
+@import "reset/meyerweb.scss";
+//@import "reset/normalize.scss";
 
-body {
-  background-color: #2e2e2e;
-  color: white;
-}
+@import "typo/fonts";
 
-.hidden {
-  display: none;
-  visibility: hidden;
-}
+@import "listing";
 
-.player--list {
-
-  li {
-    &:hover {
-      .hidden {
-        display: initial;
-        visibility: visible;
-      }
-    }
-  }
-}
-
-
-.form--add_player {
-  margin-top: 50px;
-}
-
-.player--list__select {
-  &.active {
-    background-color: yellow;
-    color: #000;
-  }
-}
+@import "style";

@@ -68,6 +68,15 @@ class App extends React.Component {
 
     }
 
+    deletePlayer(evt){
+        const players = this.state.playerList;
+        const idPlayer = evt.target.parentElement.id.split('player_')[1];
+
+        const finalPlayerList = _.pull(players,  players[idPlayer]);
+
+        this.updatePlayers(finalPlayerList);
+    }
+
     listOfPlayers(players){
         return (
             players.map((player, key) => {
@@ -106,10 +115,24 @@ class App extends React.Component {
                                 })
                             }
                         )
+
+                        <button className={'deletePlayer hidden'} onClick={(evt) => this.deletePlayer(evt)}>del</button>
                     </li>
                 )
             })
         )
+    }
+
+    resetList() {
+        const activePlayerItem = document.querySelectorAll('.player--list__select.active');
+
+        Object.keys(activePlayerItem).map((item) => {
+            activePlayerItem[item].classList.remove('active');
+        });
+
+        this.setState({
+            selectedPlayerList : []
+        })
     }
 
     componentDidMount() {
@@ -138,7 +161,8 @@ class App extends React.Component {
 
                 <PlayerList players={this.state.playerList}
                             updatePlayers={this.updatePlayers.bind(this)}
-                            listOfSelectablePlayers={this.listOfSelectablePlayers.bind(this)}/>
+                            listOfSelectablePlayers={this.listOfSelectablePlayers.bind(this)}
+                            resetList={this.resetList.bind(this)}/>
 
                 <AddPlayer playerType={this.state.playerTypes}
                            players={this.state.playerList}
@@ -155,6 +179,6 @@ class App extends React.Component {
             </div>
         );
     }
-};
+}
 
 export default App;

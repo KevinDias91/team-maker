@@ -1,0 +1,21 @@
+.player--list {
+  font-size: 1.4rem;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));;
+}
+
+.player--list__select {
+
+  &.active {
+    background-color: yellow;
+    color: #000;
+  }
+
+  &:hover {
+    .hidden {
+      display: initial;
+      visibility: visible;
+    }
+  }
+}
